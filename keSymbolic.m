@@ -1,3 +1,5 @@
+% Compute the stiffness matrix of quadrilateral element in a symbolic form
+%
 % Param
 %  -input :
 %    @uselame : whether to represent the symbolic matrix via lame 
@@ -9,6 +11,9 @@
 %    @kesymb : symbolic element stiffness matrix representation
 %    @kelam,kemu: matrix for each lame constant, the stiffness matrix can
 %              be represent by KE = lam * kelam + mu * kemu
+%
+%  Author : lavenklau
+%  mail   : zhd9702@mail.ustc.edu.cn
 function [kesymb, kelam, kemu] = keSymbolic(uselame,unitElement)
 
 if ~unitElement
