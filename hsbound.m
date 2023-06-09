@@ -1,12 +1,16 @@
 function [bulk, shear] = hsbound(youngs,psratio,vol)
-%     bulks=[youngs,youngs*1e-9];
-%     shears=[youngs/(2*(1+psratio)),youngs*1e-9/(2*(1+psratio))];
-%     [bulk,shear]=hsbound_imp(bulks,shears,vol);
-      [c,s]=CS(youngs,psratio);
-      K = sum(sum(c(1:3,1:3)))/9;
-      G = c(4,4);
-      bulk = 4*K*G*vol/(3*K*(1-vol)+4*G);
-      shear=vol*G*(9*K+8*G)/(K*(15-6*vol)+G*(20-16*vol));
+      if 1
+          bulks=[youngs/(3*(1-2*psratio)),0];
+          shears=[youngs/(2*(1+psratio)),0];
+          [bulk,shear]=hsbound_imp(bulks,shears,vol);
+          bulk=bulk(1);shear=shear(1);
+      else
+          [c,s]=CS(youngs,psratio);
+          K = sum(sum(c(1:3,1:3)))/9;
+          G = c(4,4);
+          bulk = 4*K*G*vol/(3*K*(1-vol)+4*G);
+          shear=vol*G*(9*K+8*G)/(K*(15-6*vol)+G*(20-12*vol));
+      end
 end
 
 function [bulk, shear] = hsbound_imp(bulks, shears,ratio0)
